@@ -13,33 +13,78 @@
     <script type="text/babel">
 
 var Comment = React.createClass({
+  getInitialState: function(){
+    return{editing:false}
+  },
   edit: function()
   {
-alert('Editing Comment');
+      this.setState({editing:true});
+  },
+  save: function()
+  {
+    var val=this.refs.newText.value;
+    console.log(val);
+      this.setState({editing:false});
   },
   delete: function()
   {
 alert('Deleting Comment');
   },
-  render: function()
-  {
-    return (
+  renderForm: function() {
+return (
+      <div className="commentContainer">
+        <textarea ref ="newText" defaultValue={this.props.children}></textarea>
+        <button onClick={this.save} className="button-success">Save</button>
+      </div>
+    );
+  },
+  renderNormal: function(){
+return (
       <div className="commentContainer">
         <div className="commentText">{this.props.children}</div>
         <button onClick={this.edit} className="button-primary">Edit</button>
         <button onClick={this.delete} className="button-danger">Delete</button>
       </div>
     );
+  },
+  render: function()
+  {
+    if(this.state.editing){
+      return this.renderForm();
+    }
+    else{
+      return this.renderNormal();
+    }
+  }
+});
+
+var Board = React.createClass({
+
+  getInitialState: function(){
+    return{
+      comments:[
+      'Alpha',
+      'Beta',
+      'Gamma'
+      ]
+    }
+
+  },
+  render: function(){
+    return (
+     <div className="board">
+         {
+           this.state.comments.map(function(text,i){
+             return (<Comment key={i}>{text}</Comment>);
+           })
+         }
+          </div>
+    )
   }
 });
 
 
-      ReactDOM.render(
-        <div className="board">
-          <Comment>First</Comment>
-          <Comment>Second</Comment>
-          </div>
-          ,document.getElementById('container'));
+      ReactDOM.render(<Board />,document.getElementById('container'));
 
     </script>
   </body>
