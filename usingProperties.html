@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Tut</title>
+    <script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+var Movies = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <h2>{this.props.title}</h2>
+        <h3>{this.props.genre}</h3>
+      </div>
+  );
+  }
+
+
+});
+      ReactDOM.render(
+        <div>
+          <Movies title ="Avatar" genre="Action" />
+          <Movies title ="Iron Man" genre="Action" />
+          <Movies title ="The Jungle Book" genre="Animation" />
+        </div>,document.getElementById('root'));
+
+    </script>
+  </body>
+</html>
