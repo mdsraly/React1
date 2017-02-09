@@ -6,9 +6,24 @@
     <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
-
+    <link rel="stylesheet" type="text/css" href="css/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  .btn{
+  background-color: green;
+  }
+  .commentContainer, button{
+    border-radius: 5px;
+  }
+  #container .board{
+    background-color: darkred;
+  }
+</style>
   </head>
   <body>
+    <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><center> <a id="logo-container" href="#" class="brand-logo">To-Do</a></center></div>
+  </nav>
     <div id="container"></div>
     <script type="text/babel">
 
@@ -62,12 +77,16 @@ var Board = React.createClass({
   getInitialState: function(){
     return{
       comments:[
-      'Alpha',
-      'Beta',
-      'Gamma'
+     
       ]
+      
     }
 
+  },
+  addComment: function(text){
+var arr=this.state.comments;
+arr.push(text);
+this.setState({comments:arr});
   },
   removeComment: function(i) {
     console.log('removing comment:'+i);
@@ -80,18 +99,21 @@ var Board = React.createClass({
     var arr=this.state.comments;
     arr[i]=newText;
     this.setState({comments:arr});
-  },
+      },
   eachComment: function(text,i){
              return (<Comment key={i} index={i} updateComment={this.updateComment} removeComment={this.removeComment}>{text}</Comment>);
            },
  
   render: function(){
     return (
+      <div>
+        <button className="btn waves-effect waves-light" onClick={this.addComment.bind(null, "New Task")}>New Task</button> <br /><br />  
      <div className="board">
          {
            this.state.comments.map(this.eachComment)
          }
           </div>
+     </div>
     )
   }
 });
