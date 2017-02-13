@@ -10,14 +10,19 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
   .btn{
-  background-color: green;
+  background-color:#4a148c ;
+  margin-top: 3%
+  }
+  .save{
+    background-color: green
   }
   .commentContainer, button{
     border-radius: 5px;
   }
   #container .board{
-    background-color: darkred;
+    background-color:#78909c   ;
   }
+  
 </style>
   </head>
   <body>
@@ -29,7 +34,7 @@
 
 var Comment = React.createClass({
   getInitialState: function(){
-    return{editing:false}
+    return{editing:true}
   },
   edit: function()
   {
@@ -47,17 +52,18 @@ var Comment = React.createClass({
   renderForm: function() {
 return (
       <div className="commentContainer">
-        <textarea ref ="newText" defaultValue={this.props.children}></textarea>
-        <button onClick={this.save} className="button-success">Save</button>
-      </div>
+        <textarea ref ="newText" placeholder={this.props.children}></textarea>
+        <button onClick={this.save} className="button-primary save">Save</button>
+        
+              </div>
     );
   },
   renderNormal: function(){
 return (
       <div className="commentContainer">
-        <div className="commentText">{this.props.children}</div>
-        <button onClick={this.edit} className="button-primary">Edit</button>
-        <button onClick={this.delete} className="button-danger">Delete</button>
+        <div className="commentText noteText">{this.props.children}</div>
+        <button onClick={this.edit} className="button-primary edit">Edit</button>
+        <button onClick={this.delete} className="button-danger delete">Delete</button>
       </div>
     );
   },
@@ -75,21 +81,21 @@ return (
 var Board = React.createClass({
 
   getInitialState: function(){
+    
     return{
-      comments:[
-     
+     comments:[
+      'Your First Task'
       ]
       
     }
 
   },
   addComment: function(text){
-var arr=this.state.comments;
-arr.push(text);
-this.setState({comments:arr});
+  var arr=this.state.comments;
+  arr.push(text);
+  this.setState({comments:arr});
   },
   removeComment: function(i) {
-    console.log('removing comment:'+i);
     var arr=this.state.comments;
     arr.splice(i,1);
     this.setState({comments:arr});
@@ -107,7 +113,7 @@ this.setState({comments:arr});
   render: function(){
     return (
       <div>
-        <button className="btn waves-effect waves-light" onClick={this.addComment.bind(null, "New Task")}>New Task</button> <br /><br />  
+       <center> <button className="btn waves-effect waves-light btn-large" onClick={this.addComment.bind(null, "New Task")}>+ New Task</button> <br /><br />  </center>
      <div className="board">
          {
            this.state.comments.map(this.eachComment)
